@@ -6,15 +6,15 @@ import seaborn as sns
 from matplotlib.dates import DateFormatter
 from datetime import datetime
 
-# Constants (unchanged)
+# Constants
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 }
 
-# Original scraping function (unchanged)
+# Scraping function 
 def scrape_stock_prices(url):
     response = requests.get(url, headers=HEADERS)
-    response.raise_for_status()
+    response.raise_for_status()AA
     soup = BeautifulSoup(response.content, "html.parser")
     
     print(f"Page Title: {soup.title.text.strip()}")
@@ -37,7 +37,7 @@ def scrape_stock_prices(url):
     
     return pd.DataFrame(data, columns=["Date", "Price"])
 
-# Original processing function (unchanged)
+# Processing function
 def process_data(df):
     df.fillna(0, inplace=True)
     df.drop_duplicates(inplace=True)
@@ -50,7 +50,7 @@ def process_data(df):
 
     return df
 
-# Function for Profit visualization
+# Profit visualization Function
 def plot_profit_analysis(full_df, period_df, buy_date, sell_date):
     plt.figure(figsize=(14, 7))
     
@@ -100,7 +100,7 @@ def plot_profit_analysis(full_df, period_df, buy_date, sell_date):
     plt.tight_layout()
     plt.show()
 
-# Calculate_profit function
+# Calculate_profit Function
 def calculate_profit(df):
     if df.empty:
         print("No data available for calculation.")
@@ -175,13 +175,11 @@ def calculate_profit(df):
         # Visualization with full range
         plot_profit_analysis(full_df, period_df, buy_date, sell_date)
 
-# Modified main function
 def main():
     ticker = input("Enter stock ticker (e.g., AAPL): ").strip().upper()
     print(f"Scraping {ticker} data from Yahoo Finance...")
     stock_url = f"https://finance.yahoo.com/quote/{ticker}/history/?period1=1590174921&period2=1747941317"
 
-    # Original scraping and processing
     print("Scraping stock data...")
     stock_df = scrape_stock_prices(stock_url)
 
@@ -193,8 +191,7 @@ def main():
             csv_path = f"{ticker}_stock_data.csv"
             stock_df.to_csv(csv_path, index=False)
             print(f"✅ Successfully saved {len(stock_df)} records to {csv_path}")
-            
-            # NEW: Add profit calculation feature
+            print("Calculating profit...")
             calculate_profit(stock_df)
         else:
             print("Processed DataFrame is empty. Skipping further analysis.")
