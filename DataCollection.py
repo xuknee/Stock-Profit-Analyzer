@@ -14,7 +14,7 @@ HEADERS = {
 # Scraping function 
 def scrape_stock_prices(url):
     response = requests.get(url, headers=HEADERS)
-    response.raise_for_status()AA
+    response.raise_for_status()
     soup = BeautifulSoup(response.content, "html.parser")
     
     print(f"Page Title: {soup.title.text.strip()}")
