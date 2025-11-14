@@ -58,7 +58,7 @@ class StockAnalyzer:
         
         # Fetch fresh data
         try:
-            print(f"📡 Fetching {ticker} data from Yahoo Finance...")
+            print(f" Fetching {ticker} data from Yahoo Finance...")
             stock = yf.Ticker(ticker)
             
             # Get stock info to verify ticker exists
@@ -93,12 +93,12 @@ class StockAnalyzer:
             # Cache the data
             try:
                 df.to_csv(cache_file, index=False)
-                print(f"💾 Cached data saved for {ticker}")
+                print(f" Cached data saved for {ticker}")
             except Exception as e:
                 print(f"⚠️ Cache save error: {e}")
             
             print(f"✅ Successfully loaded {len(df)} records for {ticker}")
-            print(f"📅 Data range: {df['Date'].min().date()} to {df['Date'].max().date()}")
+            print(f" Data range: {df['Date'].min().date()} to {df['Date'].max().date()}")
             
             return df
             
@@ -267,7 +267,7 @@ class StockAnalyzer:
         plot_file = os.path.join(self.output_dir, f"{ticker}_analysis.png")
         try:
             plt.savefig(plot_file, dpi=300, bbox_inches='tight')
-            print(f"📊 Chart saved as {plot_file}")
+            print(f" Chart saved as {plot_file}")
         except Exception as e:
             print(f"⚠️ Could not save chart: {e}")
         
@@ -284,8 +284,8 @@ class StockAnalyzer:
         min_date = df['Date'].min().date()
         max_date = df['Date'].max().date()
         
-        print(f"\n📅 Available data from {min_date} to {max_date}")
-        print(f"📊 Total records: {len(df)}")
+        print(f"\n Available data from {min_date} to {max_date}")
+        print(f" Total records: {len(df)}")
         
         # Get date range from user
         print(f"\n🎯 Select date range for profit analysis:")
@@ -331,17 +331,17 @@ class StockAnalyzer:
         
         try:
             results_df.to_csv(csv_file, index=False)
-            print(f"💾 Results saved to {csv_file}")
+            print(f" Results saved to {csv_file}")
         except Exception as e:
-            print(f"⚠️ Could not save results: {e}")
+            print(f" Could not save results: {e}")
         
         # Create visualization
-        print(f"\n📊 Generating visualization...")
+        print(f"\n Generating visualization...")
         self.plot_analysis(df, trade_info, ticker)
     
     def run_analysis(self):
         """Main application workflow"""
-        print("🚀 Stock Profit Analyzer")
+        print(" Stock Profit Analyzer")
         print("=" * 40)
         
         while True:
@@ -349,7 +349,7 @@ class StockAnalyzer:
                 ticker = input("\n📈 Enter stock ticker (e.g., AAPL, TSLA) or 'quit' to exit: ").strip()
                 
                 if ticker.lower() in ['quit', 'exit', 'q']:
-                    print("👋 Thanks for using Stock Profit Analyzer!")
+                    print(" Thanks for using Stock Profit Analyzer!")
                     break
                 
                 if not ticker:
@@ -366,9 +366,9 @@ class StockAnalyzer:
                 csv_path = os.path.join(self.output_dir, f"{ticker}_stock_data.csv")
                 try:
                     stock_df.to_csv(csv_path, index=False)
-                    print(f"💾 Raw data saved to {csv_path}")
+                    print(f" Raw data saved to {csv_path}")
                 except Exception as e:
-                    print(f"⚠️ Could not save raw data: {e}")
+                    print(f" Could not save raw data: {e}")
                 
                 # Run profit analysis
                 self.calculate_profit(stock_df, ticker)
@@ -379,13 +379,13 @@ class StockAnalyzer:
                     if continue_choice in ['y', 'yes']:
                         break
                     elif continue_choice in ['n', 'no']:
-                        print("👋 Thanks for using Stock Profit Analyzer!")
+                        print(" Thanks for using Stock Profit Analyzer!")
                         return
                     else:
                         print("Please enter 'y' for yes or 'n' for no.")
                 
             except KeyboardInterrupt:
-                print("\n\n👋 Interrupted by user. Goodbye!")
+                print("\n\n Interrupted by user. Goodbye!")
                 break
             except Exception as e:
                 print(f"❌ Unexpected error: {e}")
